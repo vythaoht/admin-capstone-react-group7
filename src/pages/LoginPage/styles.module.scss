@@ -1,0 +1,69 @@
+.background {
+  background-image: url("../../../public/image/auth-background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
+
+  .cover {
+    width: 400px;
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    border-radius: 5px;
+
+    .text {
+      color: rgb(21, 19, 19);
+      font-size: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .icon {
+      color: white;
+      background-color: orangered;
+      font-size: 24px;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+      margin: auto;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      text-align: center;
+    }
+
+    .formGroup {
+      margin-bottom: 20px;
+
+      .input {
+        font-size: 18px;
+        width: 100%;
+        padding: 10px;
+      }
+
+      .button {
+        color: white;
+        background-color: orangered;
+        width: 100%;
+        border-radius: 5px;
+        border: transparent;
+        padding: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          background-color: rgb(107, 40, 16);
+        }
+      }
+      .error {
+        color: red;
+        font-size: 14px;
+      }
+    }
+  }
+}
