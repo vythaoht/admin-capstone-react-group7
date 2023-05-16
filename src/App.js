@@ -7,7 +7,6 @@ import MovieManagementPage from "./pages/MovieManagementPage";
 import TheaterManagementPage from "./pages/TheaterManagementPage";
 import LoginPage from "./pages/LoginPage";
 import CreateUserManagement from "./pages/UserManagementPage/CreateUserManagement";
-import BannerMovieManagement from "./pages/MovieManagementPage/BannerMovieManagement";
 import CreateMovieManagement from "./pages/MovieManagementPage/CreateMovieManagement";
 import CreateBookingManagement from "./pages/BookingManagementPage/CreateBookingManagement";
 
@@ -27,10 +26,9 @@ function App() {
               <Route path="create" element={<CreateUserManagement />} />
             </Route>
 
-            {/* Danh sách phim - Danh sách banner - Tạo Phim */}
+            {/* Danh sách phim - Tạo Phim */}
             <Route path="movie-management">
               <Route index element={<MovieManagementPage />} />
-              <Route path="banner" element={<BannerMovieManagement />} />
               <Route path="create" element={<CreateMovieManagement />} />
             </Route>
 

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequestAction } from "../../Redux/slices/userAdminSlice";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 
 function LoginPage() {
   const [togglePassword, setTogglePassword] = useState(false);
@@ -13,6 +13,8 @@ function LoginPage() {
   const { user } = useSelector((state) => {
     return state.userReducer;
   });
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     register,
@@ -31,8 +33,10 @@ function LoginPage() {
       })
     );
   };
+
   if (user) {
-    return <Navigate to="/" />;
+    const url = searchParams.get("redirectUrl") || "/";
+    return <Navigate to={url} />;
   }
 
   return (

@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Breadcrumb } from "antd";
 import HeaderComponent from "../../components/Header";
+import AdminProtected from "../../route/AdminProtected";
 const { Header, Sider, Content } = Layout;
 
 function getItem(label, key, children) {
@@ -61,21 +62,7 @@ function AdminTemplate() {
                 children: [
                   {
                     key: "2.1",
-                    label: (
-                      <Link to="/movie-management/banner">
-                        Danh Sách Banner
-                      </Link>
-                    ),
-                  },
-                  {
-                    key: "2.2",
                     label: <Link to="/movie-management">Danh Sách Phim</Link>,
-                  },
-                  {
-                    key: "2.3",
-                    label: (
-                      <Link to="/movie-management/create">Tạo Phim Mới</Link>
-                    ),
                   },
                 ],
               },
@@ -137,7 +124,9 @@ function AdminTemplate() {
               background: colorBgContainer,
             }}
           >
-            <Outlet />
+            <AdminProtected>
+              <Outlet />
+            </AdminProtected>
           </Content>
         </Layout>
       </Layout>
