@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import {
   DatePicker,
@@ -10,13 +10,19 @@ import {
   Upload,
 } from "antd";
 import { useForm, Controller } from "react-hook-form";
-import { createMovieRequest } from "../../../Redux/services/listMovieAPI";
 import ButtonUI from "../../../components/Button";
 import { toast } from "react-toastify";
+import {
+  createMovieRequest,
+  getInfoMovieRequest,
+  updateInfoMovieRequest,
+} from "../../../Redux/services/listMovieAPI";
+import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-
-function CreateMovieManagement() {
+import TextArea from "antd/es/input/TextArea";
+function EditMovieManagement() {
   const [componentSize, setComponentSize] = useState("default");
+  const [fileList, setFileList] = useState([]);
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
@@ -27,8 +33,9 @@ function CreateMovieManagement() {
     return e?.fileList;
   };
 
-  const { handleSubmit, control, reset } = useForm({
+  const { handleSubmit, control, reset, setValue } = useForm({
     defaultValues: {
+      maPhim: "",
       tenPhim: "",
       biDanh: "",
       trailer: "",
@@ -43,18 +50,67 @@ function CreateMovieManagement() {
     },
   });
 
+  //-----//
+  const { maPhim } = useParams();
+  const navigate = useNavigate();
+
+  const onEditMovie = async (maPhim) => {
+    try {
+      const data = await getInfoMovieRequest(maPhim);
+      console.log(data);
+      // update dữ  liệu vào ô input
+      setValue("maPhim", data.maPhim);
+      setValue("tenPhim", data.tenPhim);
+      setValue("biDanh", data.biDanh);
+      setValue("trailer", data.trailer);
+      setValue("hinhAnh", data.hinhAnh);
+      setFileList([
+        ...fileList,
+        {
+          uid: "-1",
+          name: "image.png",
+          status: "done",
+          url: data.hinhAnh,
+        },
+      ]);
+      setValue("moTa", data.moTa);
+      setValue("maNhom", data.maNhom);
+      setValue("ngayKhoiChieu", data.ngayKhoiChieu);
+      setValue("danhGia", data.danhGia);
+      setValue("hot", data.hot);
+      setValue("sapChieu", data.sapChieu);
+      setValue("dangChieu", data.dangChieu);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    onEditMovie(maPhim);
+  }, []);
+
+  //Cập nhật lại - đẩy thông tin mới lên server (giống create)
   const onSubmit = async (values) => {
+    if (!fileList.length) {
+      toast.warning("Vui long chon hinh anh");
+      return;
+    }
     const payload = {
       ...values,
-      hinhAnh: values.hinhAnh?.fileList[0]?.originFileObj,
+      hinhAnh:
+        fileList.length && fileList[0]?.originFileObj
+          ? fileList[0]?.originFileObj
+          : fileList[0].url,
     };
-
     try {
-      await createMovieRequest(payload);
-      toast.success("Thêm phim thành công");
-      reset();
+      const data = await updateInfoMovieRequest(payload);
+      if (data) {
+        toast.success("Cập Nhật Phim Thành Công");
+        //sau khi cập nhật, chuyển về trang Thông tin phim
+
+        navigate("/movie-management");
+      }
     } catch (error) {
-      toast.error(error);
+      console.log(error);
     }
   };
 
@@ -79,6 +135,18 @@ function CreateMovieManagement() {
         }}
         onFinish={handleSubmit(onSubmit)}
       >
+        <Form.Item label="Mã Phim">
+          <Controller
+            name="maPhim"
+            control={control}
+            render={({ onChange, field }) => {
+              return <Input onChange={onChange} {...field} />;
+            }}
+            rules={{
+              required: true,
+            }}
+          />
+        </Form.Item>
         <Form.Item label="Tên Phim">
           <Controller
             name="tenPhim"
@@ -123,13 +191,16 @@ function CreateMovieManagement() {
           <Controller
             name="hinhAnh"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return (
                 <Upload
                   action="/upload.do"
-                  onChange={onChange}
-                  // fileList={[]}
                   {...field}
+                  onChange={({ fileList: newFileList }) => {
+                    setFileList(newFileList);
+                  }}
+                  //   onRemove={() => setFileList([])}
+                  fileList={fileList}
                   listType="picture-card"
                 >
                   <div>
@@ -156,7 +227,9 @@ function CreateMovieManagement() {
             name="moTa"
             control={control}
             render={({ onChange, field }) => {
-              return <Input onChange={onChange} {...field} />;
+              return (
+                <TextArea showCount rows={8} onChange={onChange} {...field} />
+              );
             }}
             rules={{
               required: true,
@@ -198,6 +271,7 @@ function CreateMovieManagement() {
                     // }}
                     format="DD/MM/YYYY"
                     onChange={onChange}
+                    value={dayjs(field.value)}
                   />
                 </Space>
               );
@@ -222,12 +296,7 @@ function CreateMovieManagement() {
             control={control}
             render={({ onChange, field }) => {
               return (
-                <Switch
-                  onChange={onChange}
-                  {...field}
-                  checked={field.value}
-                  w
-                />
+                <Switch onChange={onChange} {...field} checked={field.value} />
               );
             }}
           />
@@ -255,10 +324,10 @@ function CreateMovieManagement() {
           />
         </Form.Item>
 
-        <ButtonUI type="submit" title="Thêm Phim" />
+        <ButtonUI type="submit" title="Cập Nhật Phim" />
       </Form>
     </>
   );
 }
 
-export default CreateMovieManagement;
+export default EditMovieManagement;
