@@ -8,4 +8,26 @@ const axiosClient = axios.create({
   },
 });
 
+// Cấu hình headers trước khi gửi lên server:
+axiosClient.interceptors.request.use((config) => {
+  const isLogin = localStorage.getItem("accessToken") ? true : false;
+  config.headers.Authorization = isLogin
+    ? `Bearer ${localStorage.getItem("accessToken")}`
+    : "";
+  return config;
+});
+
+// Tìm lỗi "401" bằng console.log (error)
+axiosClient.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      window.location.href = `/login?redirectUrl=${window.location.pathname}`;
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default axiosClient;
