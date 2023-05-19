@@ -20,7 +20,9 @@ export async function addUserAPI(payload) {
 export async function getInfoAccountAPI(accountName) {
     try {
         const response = await axiosClient.post(`/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${accountName}`);
-        return response;
+        console.log(response)
+        
+        return response.data.content;
     } catch (error) {
         throw error.response.data.content;
     }

@@ -28,18 +28,8 @@
     }
 
     button {
-        background-color: orangered;
-        color: white;
         width: 50rem;
-        border: 1px solid transparent;
-        border-radius: 5px;
         padding: 15px;
-        font-weight: bold;
-        transition: all 0.5s;
-
-        &:hover {
-            background-color: rgb(139, 45, 10);
-        }
     }
 }
 

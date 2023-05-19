@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import cls from 'classnames';
 import styles from './editUserManagement.module.scss';
-import { Form, Input } from 'antd';
+import { Input } from 'antd';
 import ButtonUI from '../../../components/Button';
 
 function EditUserManagement() {
@@ -29,12 +29,11 @@ function EditUserManagement() {
     mode: "onChange",
   });
 
-  // Xử lý hiển thị dữ liệu lên input
+  // Xử lý hiển thị dữ liệu lên Input
   const onEditAccount = async (accountName) => {
     try {
       const data = await getInfoAccountAPI(accountName);
-      console.log(data);
-      // update dữ  liệu vào ô input
+      // update dữ  liệu vào ô Input
       setValue("taiKhoan", data.taiKhoan);
       setValue("matKhau", data.matKhau);
       setValue("xacThucMatKhau", data.xacThucMatKhau);
@@ -81,8 +80,8 @@ function EditUserManagement() {
           <Controller
             name="taiKhoan"
             control={control}
-            render={({ field }) => {
-              return <input type='text' {...field} placeholder="Tài Khoản *" />;
+            render={({ onChange, field }) => {
+              return <Input type='text' onChange={onChange} {...field} placeholder="Tài Khoản *" />;
             }}
             rules={{
               required: {
@@ -101,9 +100,10 @@ function EditUserManagement() {
           <Controller
             name="matKhau"
             control={control}
-            render={({ field }) => {
-              return <input
+            render={({ onChange, field }) => {
+              return <Input
                 type={togglePassword ? "text" : "password"}
+                onChange={onChange}
                 {...field}
                 placeholder="Mật Khẩu *"
               />;
@@ -125,9 +125,10 @@ function EditUserManagement() {
           <Controller
             name="xacThucMatKhau"
             control={control}
-            render={({ field }) => {
-              return <input
+            render={({ onChange, field }) => {
+              return <Input
                 type={togglePassword ? "text" : "password"}
+                onChange={onChange}
                 {...field}
                 placeholder="Nhập Lại Mật Khẩu *"
               />;
@@ -149,9 +150,10 @@ function EditUserManagement() {
           <Controller
             name="hoTen"
             control={control}
-            render={({ field }) => {
-              return <input
+            render={({ onChange, field }) => {
+              return <Input
                 type='text'
+                onChange={onChange}
                 {...field}
                 placeholder="Họ Tên *"
               />;
@@ -169,9 +171,10 @@ function EditUserManagement() {
           <Controller
             name="email"
             control={control}
-            render={({ field }) => {
-              return <input
+            render={({ onChange, field }) => {
+              return <Input
                 type='text'
+                onChange={onChange}
                 {...field}
                 placeholder="Email *"
               />;
@@ -189,9 +192,10 @@ function EditUserManagement() {
           <Controller
             name="soDt"
             control={control}
-            render={({ field }) => {
-              return <input
+            render={({ onChange, field }) => {
+              return <Input
                 type='text'
+                onChange={onChange}
                 {...field}
                 placeholder="Số Điện Thoại *"
               />;
@@ -214,9 +218,9 @@ function EditUserManagement() {
           <Controller
             name="maLoaiNguoiDung"
             control={control}
-            render={({ field }) => {
+            render={({ onChange, field }) => {
               return (<select
-                type='text'
+                onChange={onChange}
                 {...field}
                 placeholder="Số Điện Thoại *"
               >
@@ -239,9 +243,10 @@ function EditUserManagement() {
           <Controller
             name="maNhom"
             control={control}
-            render={({ field }) => {
-              return <input
+            render={({ onChange, field }) => {
+              return <Input
                 type='text'
+                onChange={onChange}
                 {...field}
                 placeholder="maNhom *"
                 disabled={true}
