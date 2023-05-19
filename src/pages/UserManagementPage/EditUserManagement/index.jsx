@@ -1,23 +1,21 @@
-import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import cls from "classnames";
-import styles from './createUserManagement.module.scss';
-import { addUserAPI } from "../../../Redux/services/listAccountAPI";
-import { useNavigate } from "react-router-dom";
-import ButtonUI from "../../../components/Button";
+import React, { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form';
+import { getInfoAccountAPI, updateUserAPI } from '../../../Redux/services/listAccountAPI';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import cls from 'classnames';
+import styles from './editUserManagement.module.scss';
+import { Form, Input } from 'antd';
+import ButtonUI from '../../../components/Button';
 
-function CreateUserManagement() {
+function EditUserManagement() {
   const [togglePassword, setTogglePassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { taiKhoan } = useParams();
   const navigate = useNavigate();
 
-  const {
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm({
+
+  const { handleSubmit, control, setValue, watch, formState: { errors }, } = useForm({
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
@@ -28,47 +26,63 @@ function CreateUserManagement() {
       hoTen: "",
       maLoaiNguoiDung: "",
     },
+    mode: "onChange",
   });
-  // ---
 
-  //--- Hàm xử lý đăng ký
+  // Xử lý hiển thị dữ liệu lên input
+  const onEditAccount = async (accountName) => {
+    try {
+      const data = await getInfoAccountAPI(accountName);
+      console.log(data);
+      // update dữ  liệu vào ô input
+      setValue("taiKhoan", data.taiKhoan);
+      setValue("matKhau", data.matKhau);
+      setValue("xacThucMatKhau", data.xacThucMatKhau);
+      setValue("email", data.email);
+      setValue("soDt", data.soDt);
+      setValue("maNhom", "GP07");
+      setValue("hoTen", data.hoTen);
+      setValue("maLoaiNguoiDung", data.maLoaiNguoiDung);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    onEditAccount(taiKhoan);
+  }, []);
+
+  // Xử lý cập nhật dữ liệu
   const onSubmit = async (values) => {
     values.preventDefault();
     try {
-      setIsLoading(true);
-      await addUserAPI({
-        taiKhoan: values.taiKhoan,
-        matKhau: values.matKhau,
-        email: values.email,
-        soDt: values.soDt,
-        maNhom: values.maNhom,
-        hoTen: values.hoTen,
-        maLoaiNguoiDung: values.maLoaiNguoiDung,
-      });
-      toast.success("Đăng ký thành công");
-      navigate("/user-management");
+      const data = await updateUserAPI(values);
+      if (data) {
+        toast.success("Cập Nhật thông tin Thành Công");
+        navigate("/user-management");
+      }
     } catch (error) {
-      toast.error(error);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   return (
     <div>
       <div className="text-center">
         {/* dùng template string để add thêm class cho className đã có sẵn hoặc dùng thư viện classnames */}
-        <i className={cls("fa fa-lock", styles.icon)}></i>
+        <i className={cls("fa fa-user-edit", styles.icon)}></i>
       </div>
-      <h4 className="text-center">Thêm Tài Khoản</h4>
+      <h4 className="text-center">Cập nhật thông tin tài khoản</h4>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formGroup}>
           <Controller
             name="taiKhoan"
             control={control}
-            render={({ onChange, field }) => {
-              return <input type='text' onChange={onChange} {...field} placeholder="Tài Khoản *" />;
+            render={({ field }) => {
+              return <input type='text' {...field} placeholder="Tài Khoản *" />;
             }}
             rules={{
               required: {
@@ -87,10 +101,10 @@ function CreateUserManagement() {
           <Controller
             name="matKhau"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return <input
                 type={togglePassword ? "text" : "password"}
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="Mật Khẩu *"
               />;
             }}
@@ -111,10 +125,10 @@ function CreateUserManagement() {
           <Controller
             name="xacThucMatKhau"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return <input
                 type={togglePassword ? "text" : "password"}
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="Nhập Lại Mật Khẩu *"
               />;
             }}
@@ -135,10 +149,10 @@ function CreateUserManagement() {
           <Controller
             name="hoTen"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return <input
                 type='text'
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="Họ Tên *"
               />;
             }}
@@ -155,10 +169,10 @@ function CreateUserManagement() {
           <Controller
             name="email"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return <input
                 type='text'
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="Email *"
               />;
             }}
@@ -175,10 +189,10 @@ function CreateUserManagement() {
           <Controller
             name="soDt"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return <input
                 type='text'
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="Số Điện Thoại *"
               />;
             }}
@@ -200,10 +214,10 @@ function CreateUserManagement() {
           <Controller
             name="maLoaiNguoiDung"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return (<select
                 type='text'
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="Số Điện Thoại *"
               >
                 <option value="#">--Chọn loại người dùng--</option>
@@ -225,12 +239,12 @@ function CreateUserManagement() {
           <Controller
             name="maNhom"
             control={control}
-            render={({ onChange, field }) => {
+            render={({ field }) => {
               return <input
                 type='text'
-                onChange={onChange} {...field}
+                {...field}
                 placeholder="maNhom *"
-                disabled="true"
+                disabled={true}
               />;
             }}
           />
@@ -247,11 +261,11 @@ function CreateUserManagement() {
           </label>
         </div>
         <div className={styles.formGroup}>
-          <ButtonUI title='Thêm Tài Khoản' disabled={isLoading} />
+          <ButtonUI title='Cập Nhật' disabled={isLoading} />
         </div>
       </form>
     </div>
   )
 }
 
-export default CreateUserManagement;
+export default EditUserManagement

@@ -47,12 +47,6 @@ function AdminTemplate() {
                       <Link to="/user-management">Danh Sách Người Dùng</Link>
                     ),
                   },
-                  {
-                    key: "1.2",
-                    label: (
-                      <Link to="/user-management/create">Tạo Người Dùng</Link>
-                    ),
-                  },
                 ],
               },
               {
