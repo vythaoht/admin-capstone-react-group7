@@ -10,6 +10,7 @@ import CreateUserManagement from "./pages/UserManagementPage/CreateUserManagemen
 import CreateMovieManagement from "./pages/MovieManagementPage/CreateMovieManagement";
 import CreateBookingManagement from "./pages/BookingManagementPage/CreateBookingManagement";
 import EditMovieManagement from "./pages/MovieManagementPage/EditMovieManagement";
+import EditUserManagement from "./pages/UserManagementPage/EditUserManagement";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="user-management">
               <Route index element={<UserManagementPage />} />
               <Route path="create" element={<CreateUserManagement />} />
+              <Route path="edit/:taiKhoan" element={<EditUserManagement />} />
             </Route>
 
             {/* Danh sách phim - Tạo Phim - Edit Phim */}

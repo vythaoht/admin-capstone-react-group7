@@ -1,0 +1,20 @@
+.table__responsive {
+    overflow-x: auto;
+    .table__item {
+        tbody {
+            tr {
+                td {
+                    .edit__action {
+                        color: #60c5ef;
+                        cursor: pointer;
+                    }
+
+                    .delete__action {
+                        color: #fb4226;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
