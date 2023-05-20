@@ -17,3 +17,28 @@ html, * {
   padding: 0;
   box-sizing: border-box;
 }
+
+.cover {
+
+}
+
+.cover .title {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+.cover .table {
+  border: 1px solid rgb(206, 206, 206);
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+.cover .table th,
+td {
+  border-bottom: 1px solid rgb(206, 206, 206);
+  padding: 10px;
+}
+
+.cover .table th {
+  font-size: 16px;
+}

@@ -170,7 +170,7 @@ function MovieManagementPage() {
   return (
     <div style={{ height: 800, width: "100%" }}>
       <h3 className={styles.title}>Quản Lý Phim</h3>
-      <ButtonUI title="Thêm Phim" onClick={onNavigateToAddMovie} />
+      <ButtonUI title="Thêm Phim" mb={15} onClick={onNavigateToAddMovie} />
       <SearchForm
         placeholder="Search Tên Phim"
         onChange={onChangeInput}
