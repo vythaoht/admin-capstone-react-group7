@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form';
-import { getInfoAccountAPI, updateUserAPI } from '../../../Redux/services/listAccountAPI';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import cls from 'classnames';
-import styles from './editUserManagement.module.scss';
-import { Input } from 'antd';
-import ButtonUI from '../../../components/Button';
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import {
+  getInfoAccountAPI,
+  updateUserAPI,
+} from "../../../Redux/services/listAccountAPI";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import cls from "classnames";
+import styles from "./editUserManagement.module.scss";
+import { Input } from "antd";
+import ButtonUI from "../../../components/Button";
 
 function EditUserManagement() {
   const [togglePassword, setTogglePassword] = useState(false);
@@ -14,8 +17,13 @@ function EditUserManagement() {
   const { taiKhoan } = useParams();
   const navigate = useNavigate();
 
-
-  const { handleSubmit, control, setValue, watch, formState: { errors }, } = useForm({
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
@@ -43,7 +51,7 @@ function EditUserManagement() {
       setValue("hoTen", data.hoTen);
       setValue("maLoaiNguoiDung", data.maLoaiNguoiDung);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -61,11 +69,11 @@ function EditUserManagement() {
         navigate("/user-management");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -81,7 +89,14 @@ function EditUserManagement() {
             name="taiKhoan"
             control={control}
             render={({ onChange, field }) => {
-              return <Input type='text' onChange={onChange} {...field} placeholder="Tài Khoản *" />;
+              return (
+                <Input
+                  type="text"
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Tài Khoản *"
+                />
+              );
             }}
             rules={{
               required: {
@@ -101,12 +116,14 @@ function EditUserManagement() {
             name="matKhau"
             control={control}
             render={({ onChange, field }) => {
-              return <Input
-                type={togglePassword ? "text" : "password"}
-                onChange={onChange}
-                {...field}
-                placeholder="Mật Khẩu *"
-              />;
+              return (
+                <Input
+                  type={togglePassword ? "text" : "password"}
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Mật Khẩu *"
+                />
+              );
             }}
             rules={{
               required: {
@@ -126,12 +143,14 @@ function EditUserManagement() {
             name="xacThucMatKhau"
             control={control}
             render={({ onChange, field }) => {
-              return <Input
-                type={togglePassword ? "text" : "password"}
-                onChange={onChange}
-                {...field}
-                placeholder="Nhập Lại Mật Khẩu *"
-              />;
+              return (
+                <Input
+                  type={togglePassword ? "text" : "password"}
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Nhập Lại Mật Khẩu *"
+                />
+              );
             }}
             rules={{
               required: {
@@ -151,12 +170,14 @@ function EditUserManagement() {
             name="hoTen"
             control={control}
             render={({ onChange, field }) => {
-              return <Input
-                type='text'
-                onChange={onChange}
-                {...field}
-                placeholder="Họ Tên *"
-              />;
+              return (
+                <Input
+                  type="text"
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Họ Tên *"
+                />
+              );
             }}
             rules={{
               required: {
@@ -172,12 +193,14 @@ function EditUserManagement() {
             name="email"
             control={control}
             render={({ onChange, field }) => {
-              return <Input
-                type='text'
-                onChange={onChange}
-                {...field}
-                placeholder="Email *"
-              />;
+              return (
+                <Input
+                  type="text"
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Email *"
+                />
+              );
             }}
             rules={{
               required: {
@@ -193,12 +216,14 @@ function EditUserManagement() {
             name="soDt"
             control={control}
             render={({ onChange, field }) => {
-              return <Input
-                type='text'
-                onChange={onChange}
-                {...field}
-                placeholder="Số Điện Thoại *"
-              />;
+              return (
+                <Input
+                  type="text"
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Số Điện Thoại *"
+                />
+              );
             }}
             rules={{
               required: {
@@ -219,16 +244,17 @@ function EditUserManagement() {
             name="maLoaiNguoiDung"
             control={control}
             render={({ onChange, field }) => {
-              return (<select
-                onChange={onChange}
-                {...field}
-                placeholder="Số Điện Thoại *"
-              >
-                <option value="#">--Chọn loại người dùng--</option>
-                <option value="KhachHang">Khách Hàng</option>
-                <option value="QuanTri">Quản Trị</option>
-              </select>
-              )
+              return (
+                <select
+                  onChange={onChange}
+                  {...field}
+                  placeholder="Số Điện Thoại *"
+                >
+                  <option value="#">--Chọn loại người dùng--</option>
+                  <option value="KhachHang">Khách Hàng</option>
+                  <option value="QuanTri">Quản Trị</option>
+                </select>
+              );
             }}
             rules={{
               required: {
@@ -244,13 +270,15 @@ function EditUserManagement() {
             name="maNhom"
             control={control}
             render={({ onChange, field }) => {
-              return <Input
-                type='text'
-                onChange={onChange}
-                {...field}
-                placeholder="maNhom *"
-                disabled={true}
-              />;
+              return (
+                <Input
+                  type="text"
+                  onChange={onChange}
+                  {...field}
+                  placeholder="maNhom *"
+                  disabled={true}
+                />
+              );
             }}
           />
         </div>
@@ -266,11 +294,11 @@ function EditUserManagement() {
           </label>
         </div>
         <div className={styles.formGroup}>
-          <ButtonUI title='Cập Nhật' disabled={isLoading} />
+          <ButtonUI title="Cập Nhật" disabled={isLoading} />
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default EditUserManagement
+export default EditUserManagement;

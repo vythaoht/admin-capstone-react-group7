@@ -16,7 +16,7 @@ function ListTheater() {
       const data = await theatersRequest(theaterId);
       setTheaters(data);
     } catch (error) {
-      console.log(error);
+      throw error.response.data.content;
     }
   };
 

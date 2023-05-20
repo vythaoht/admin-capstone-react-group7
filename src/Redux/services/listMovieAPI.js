@@ -38,7 +38,7 @@ export const deleteMovieRequest = async (maPhim) => {
     );
     return true;
   } catch (error) {
-    throw error;
+    throw error.response.data.content;
   }
 };
 
@@ -64,7 +64,7 @@ export const getInfoMovieRequest = async (movieId) => {
     );
     return response.data.content;
   } catch (error) {
-    throw error;
+    throw error.response.data.content;
   }
 };
 
@@ -79,6 +79,6 @@ export const updateInfoMovieRequest = async (movie) => {
     await axiosClient.post(`/QuanLyPhim/CapNhatPhimUpload`, formData);
     return true;
   } catch (error) {
-    console.log(error);
+    throw error.response.data.content;
   }
 };
