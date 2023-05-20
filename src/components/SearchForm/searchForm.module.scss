@@ -1,5 +1,7 @@
 .inputSearchMovie {
   display: flex;
+  justify-content: center;
+  margin-top: 15px;
 
   .input {
     font-size: 16px;
@@ -11,12 +13,14 @@
   }
 
   .searchIcon {
+    display: flex;
     padding: 5px;
     font-size: 20px;
     border: 1px solid rgb(5, 122, 206);
     background-color: rgb(5, 122, 206);
     color: white;
     height: 30px;
+    line-height: 30px;
     cursor: pointer;
   }
 }

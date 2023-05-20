@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import ButtonUI from "../../components/Button";
 import { listTheaterRequest } from "../../Redux/services/listTheaterAPI";
 
@@ -13,7 +14,7 @@ function TheaterManagementPage() {
       const data = await listTheaterRequest();
       setListTheater(data);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
   useEffect(() => {

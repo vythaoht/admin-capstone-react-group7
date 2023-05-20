@@ -6,7 +6,7 @@ export const listTheaterRequest = async () => {
     const response = await axiosClient.get("/QuanLyRap/LayThongTinHeThongRap");
     return response.data.content;
   } catch (error) {
-    throw error;
+    throw error.response.data.content;
   }
 };
 
@@ -33,6 +33,6 @@ export const listMovieOfTheaterRequest = async (theaterId, id) => {
       return item.maCumRap === id;
     });
   } catch (error) {
-    throw error;
+    throw error.response.data.content;
   }
 };

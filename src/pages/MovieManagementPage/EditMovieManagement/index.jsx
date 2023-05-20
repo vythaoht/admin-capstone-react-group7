@@ -13,13 +13,13 @@ import { useForm, Controller } from "react-hook-form";
 import ButtonUI from "../../../components/Button";
 import { toast } from "react-toastify";
 import {
-  createMovieRequest,
   getInfoMovieRequest,
   updateInfoMovieRequest,
 } from "../../../Redux/services/listMovieAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import TextArea from "antd/es/input/TextArea";
+
 function EditMovieManagement() {
   const [componentSize, setComponentSize] = useState("default");
   const [fileList, setFileList] = useState([]);
@@ -57,7 +57,6 @@ function EditMovieManagement() {
   const onEditMovie = async (maPhim) => {
     try {
       const data = await getInfoMovieRequest(maPhim);
-      console.log(data);
       // update dữ  liệu vào ô input
       setValue("maPhim", data.maPhim);
       setValue("tenPhim", data.tenPhim);
@@ -81,7 +80,7 @@ function EditMovieManagement() {
       setValue("sapChieu", data.sapChieu);
       setValue("dangChieu", data.dangChieu);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
   useEffect(() => {
@@ -110,7 +109,7 @@ function EditMovieManagement() {
         navigate("/movie-management");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 

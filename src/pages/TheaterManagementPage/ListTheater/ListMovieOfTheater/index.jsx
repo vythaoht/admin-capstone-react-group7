@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ButtonUI from "../../../../components/Button";
 import { Modal } from "antd";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 function ListMovieOfTheater() {
   const [listMovie, setListMovie] = useState([]);
@@ -96,7 +97,6 @@ function ListMovieOfTheater() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = (row) => {
     setShowTime(row);
-    console.log(row);
     setIsModalOpen(true);
   };
   const handleOk = () => {
@@ -109,10 +109,9 @@ function ListMovieOfTheater() {
   const fetchListMovieOfTheater = async (theaterId, id) => {
     try {
       const data = await listMovieOfTheaterRequest(theaterId, id);
-      console.log(data);
       setListMovie(data[0].danhSachPhim);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
   useEffect(() => {

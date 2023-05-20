@@ -20,7 +20,7 @@ function MovieManagementPage() {
       field: "maPhim",
       width: 120,
       renderHeader: (params) => {
-        return <h3>Mã Phim</h3>;
+        return <h6 style={{ fontWeight: "bold" }}>Mã Phim</h6>;
       },
     },
     {
@@ -37,28 +37,28 @@ function MovieManagementPage() {
         );
       },
       renderHeader: (params) => {
-        return <h3>Hình Ảnh</h3>;
+        return <h6 style={{ fontWeight: "bold" }}>Hình Ảnh</h6>;
       },
     },
     {
       field: "tenPhim",
       width: 200,
       renderHeader: (params) => {
-        return <h3>Tên Phim</h3>;
+        return <h6 style={{ fontWeight: "bold" }}>Tên Phim</h6>;
       },
     },
     {
       field: "moTa",
       width: 300,
       renderHeader: (params) => {
-        return <h3>Mô Tả</h3>;
+        return <h6 style={{ fontWeight: "bold" }}>Mô Tả</h6>;
       },
     },
     {
       field: "action",
       width: 200,
       renderHeader: (params) => {
-        return <h3>Hành Động</h3>;
+        return <h6 style={{ fontWeight: "bold" }}>Hành Động</h6>;
       },
       renderCell: (params) => {
         return (
@@ -129,12 +129,13 @@ function MovieManagementPage() {
   };
 
   const onDeleteMovie = async (maPhim) => {
-    console.log(maPhim);
     try {
       const data = await deleteMovieRequest(maPhim);
       toast.success("Xoá phim thành công!");
       fetchListMovie();
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const onNavigateToEditMovie = async (maPhim) => {
