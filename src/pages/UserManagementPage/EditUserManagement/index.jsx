@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   getInfoAccountAPI,
+  getTypeAPI,
   updateUserAPI,
 } from "../../../Redux/services/listAccountAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import cls from "classnames";
 import styles from "./editUserManagement.module.scss";
-import { Input } from "antd";
+import { Input, Select } from "antd";
 import ButtonUI from "../../../components/Button";
 
 function EditUserManagement() {
   const [togglePassword, setTogglePassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [typeSelect, setTypeSelect] = useState([]);
   const { taiKhoan } = useParams();
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ function EditUserManagement() {
       matKhau: "",
       xacThucMatKhau: "",
       email: "",
-      soDt: "",
+      soDT: "",
       maNhom: "GP07",
       hoTen: "",
       maLoaiNguoiDung: "",
@@ -44,12 +46,17 @@ function EditUserManagement() {
       // update dữ  liệu vào ô Input
       setValue("taiKhoan", data.taiKhoan);
       setValue("matKhau", data.matKhau);
-      setValue("xacThucMatKhau", data.xacThucMatKhau);
       setValue("email", data.email);
-      setValue("soDt", data.soDt);
+      setValue("soDT", data.soDT);
       setValue("maNhom", "GP07");
       setValue("hoTen", data.hoTen);
-      setValue("maLoaiNguoiDung", data.maLoaiNguoiDung);
+      setTypeSelect([
+        ...typeSelect,
+        {
+          maLoaiNguoiDung: data.loaiNguoiDung.maLoaiNguoiDung,
+          tenLoai: data.loaiNguoiDung.tenLoai,
+        },
+      ]);
     } catch (error) {
       toast.error(error);
     }
@@ -61,9 +68,11 @@ function EditUserManagement() {
 
   // Xử lý cập nhật dữ liệu
   const onSubmit = async (values) => {
-    values.preventDefault();
     try {
-      const data = await updateUserAPI(values);
+      const data = await updateUserAPI({ ...values });
+
+      console.log(data);
+
       if (data) {
         toast.success("Cập Nhật thông tin Thành Công");
         navigate("/user-management");
@@ -73,6 +82,33 @@ function EditUserManagement() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Call lấy loại người dùng
+  const getType = async () => {
+    try {
+      const data = await getTypeAPI();
+      setTypeSelect(data.content);
+    } catch (error) {
+      toast.setError("Không lấy được loại người dùng");
+    }
+  };
+
+  useEffect(() => {
+    getType();
+  }, []);
+
+  const renderTypeSelect = () => {
+    return typeSelect.map((option) => {
+      return (
+        <Select.Option
+          key={option.maLoaiNguoiDung}
+          value={option.maLoaiNguoiDung}
+        >
+          {option.tenLoai}
+        </Select.Option>
+      );
+    });
   };
 
   return (
@@ -140,33 +176,6 @@ function EditUserManagement() {
         </div>
         <div className={styles.formGroup}>
           <Controller
-            name="xacThucMatKhau"
-            control={control}
-            render={({ onChange, field }) => {
-              return (
-                <Input
-                  type={togglePassword ? "text" : "password"}
-                  onChange={onChange}
-                  {...field}
-                  placeholder="Nhập Lại Mật Khẩu *"
-                />
-              );
-            }}
-            rules={{
-              required: {
-                value: true,
-              },
-              validate: (val) => {
-                if (watch("matKhau") != val) {
-                  return "Nhập lại mật khẩu không khớp";
-                }
-              },
-            }}
-          />
-          {errors.xacThucMatKhau && <p>{errors.xacThucMatKhau.message}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          <Controller
             name="hoTen"
             control={control}
             render={({ onChange, field }) => {
@@ -213,7 +222,7 @@ function EditUserManagement() {
         </div>
         <div className={styles.formGroup}>
           <Controller
-            name="soDt"
+            name="soDT"
             control={control}
             render={({ onChange, field }) => {
               return (
@@ -236,7 +245,7 @@ function EditUserManagement() {
               },
             }}
           />
-          {errors.soDt && <p>{errors.soDt.message}</p>}
+          {errors.soDT && <p>{errors.soDT.message}</p>}
         </div>
 
         <div className={styles.formGroup}>
@@ -245,15 +254,15 @@ function EditUserManagement() {
             control={control}
             render={({ onChange, field }) => {
               return (
-                <select
+                <Select
                   onChange={onChange}
                   {...field}
-                  placeholder="Số Điện Thoại *"
+                  value={field.value.key}
+                  style={{ width: "50rem", textAlign: "left" }}
+                  placeholder="--Chọn loại người dùng--"
                 >
-                  <option value="#">--Chọn loại người dùng--</option>
-                  <option value="KhachHang">Khách Hàng</option>
-                  <option value="QuanTri">Quản Trị</option>
-                </select>
+                  {renderTypeSelect()}
+                </Select>
               );
             }}
             rules={{
@@ -265,6 +274,7 @@ function EditUserManagement() {
           />
           {errors.maLoaiNguoiDung && <p>{errors.maLoaiNguoiDung.message}</p>}
         </div>
+
         <div className={styles.formGroup}>
           <Controller
             name="maNhom"

@@ -27,6 +27,7 @@ export async function getInfoAccountAPI(accountName) {
     const response = await axiosClient.post(
       `/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${accountName}`
     );
+    console.log(response);
 
     return response.data.content;
   } catch (error) {
@@ -35,16 +36,24 @@ export async function getInfoAccountAPI(accountName) {
 }
 
 // Call API cập nhật thông tin
-export async function updateUserAPI(accountName) {
+export const updateUserAPI = async (account) => {
   try {
-    const response = await axiosClient.put(
-      `/QuanLyNguoiDung/CapNhatThongTinNguoiDung?TaiKhoan=${accountName}`
+    const formData = new FormData();
+    for (let key in account) {
+      formData.append(key, account[key]);
+    }
+
+    console.log(formData);
+
+    await axiosClient.post(
+      `/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      formData
     );
-    return response;
+    return true;
   } catch (error) {
     throw error.response.data.content;
   }
-}
+};
 
 // Call API xóa tài khoản
 export async function deleteUserAPI(accountName) {
@@ -57,3 +66,11 @@ export async function deleteUserAPI(accountName) {
     throw error.response.data.content;
   }
 }
+
+// Call API lấy danh sách loại người dùng
+export const getTypeAPI = async () => {
+  const { data } = await axiosClient.get(
+    `/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung`
+  );
+  return data;
+};

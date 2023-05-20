@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import cls from "classnames";
 import styles from './createUserManagement.module.scss';
-import { addUserAPI } from "../../../Redux/services/listAccountAPI";
+import { addUserAPI, getTypeAPI } from "../../../Redux/services/listAccountAPI";
 import { useNavigate } from "react-router-dom";
 import ButtonUI from "../../../components/Button";
+import { Input, Select } from "antd";
 
 function CreateUserManagement() {
   const [togglePassword, setTogglePassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [typeSelect, setTypeSelect] = useState([]);
   const navigate = useNavigate();
 
   const {
@@ -33,7 +35,6 @@ function CreateUserManagement() {
 
   //--- Hàm xử lý đăng ký
   const onSubmit = async (values) => {
-    values.preventDefault();
     try {
       setIsLoading(true);
       await addUserAPI({
@@ -54,6 +55,31 @@ function CreateUserManagement() {
     }
   };
 
+
+  // Call lấy loại người dùng
+  const getType = async () => {
+    try {
+      const data = await getTypeAPI();
+      setTypeSelect(data.content);
+    } catch (error) {
+      toast.setError("Không lấy được loại người dùng");
+    }
+  }
+
+  useEffect(() => {
+    getType();
+  }, []);
+
+  const renderTypeSelect = () => {
+    return typeSelect.map((option) => {
+      return (
+        <Select.Option key={option.maLoaiNguoiDung} value={option.maLoaiNguoiDung}>
+          {option.tenLoai}
+        </Select.Option>
+      );
+    })
+  }
+
   return (
     <div>
       <div className="text-center">
@@ -68,7 +94,7 @@ function CreateUserManagement() {
             name="taiKhoan"
             control={control}
             render={({ onChange, field }) => {
-              return <input type='text' onChange={onChange} {...field} placeholder="Tài Khoản *" />;
+              return <Input type='text' onChange={onChange} {...field} placeholder="Tài Khoản *" />;
             }}
             rules={{
               required: {
@@ -88,7 +114,7 @@ function CreateUserManagement() {
             name="matKhau"
             control={control}
             render={({ onChange, field }) => {
-              return <input
+              return <Input
                 type={togglePassword ? "text" : "password"}
                 onChange={onChange} {...field}
                 placeholder="Mật Khẩu *"
@@ -112,7 +138,7 @@ function CreateUserManagement() {
             name="xacThucMatKhau"
             control={control}
             render={({ onChange, field }) => {
-              return <input
+              return <Input
                 type={togglePassword ? "text" : "password"}
                 onChange={onChange} {...field}
                 placeholder="Nhập Lại Mật Khẩu *"
@@ -136,7 +162,7 @@ function CreateUserManagement() {
             name="hoTen"
             control={control}
             render={({ onChange, field }) => {
-              return <input
+              return <Input
                 type='text'
                 onChange={onChange} {...field}
                 placeholder="Họ Tên *"
@@ -156,7 +182,7 @@ function CreateUserManagement() {
             name="email"
             control={control}
             render={({ onChange, field }) => {
-              return <input
+              return <Input
                 type='text'
                 onChange={onChange} {...field}
                 placeholder="Email *"
@@ -176,7 +202,7 @@ function CreateUserManagement() {
             name="soDt"
             control={control}
             render={({ onChange, field }) => {
-              return <input
+              return <Input
                 type='text'
                 onChange={onChange} {...field}
                 placeholder="Số Điện Thoại *"
@@ -201,15 +227,16 @@ function CreateUserManagement() {
             name="maLoaiNguoiDung"
             control={control}
             render={({ onChange, field }) => {
-              return (<select
-                type='text'
-                onChange={onChange} {...field}
-                placeholder="Số Điện Thoại *"
-              >
-                <option value="#">--Chọn loại người dùng--</option>
-                <option value="KhachHang">Khách Hàng</option>
-                <option value="QuanTri">Quản Trị</option>
-              </select>
+              return (
+                <Select
+                  onChange={onChange}
+                  {...field}
+                  value={field.value.key}
+                  style={{ width: '50rem', textAlign: 'left' }}
+                  placeholder="--Chọn loại người dùng--"
+                >
+                  {renderTypeSelect()}
+                </Select>
               )
             }}
             rules={{
@@ -226,11 +253,11 @@ function CreateUserManagement() {
             name="maNhom"
             control={control}
             render={({ onChange, field }) => {
-              return <input
+              return <Input
                 type='text'
                 onChange={onChange} {...field}
                 placeholder="maNhom *"
-                disabled="true"
+                disabled={true}
               />;
             }}
           />
