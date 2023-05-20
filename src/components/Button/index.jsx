@@ -6,6 +6,7 @@ function ButtonUI({
   bgColor = "transparent",
   color = "rgb(5, 122, 206)",
   borderColor = "rgb(5, 122, 206)",
+  mb = 0,
   onClick,
 }) {
   return (
@@ -14,6 +15,7 @@ function ButtonUI({
         backgroundColor: bgColor,
         color: color,
         borderColor: borderColor,
+        marginBottom: mb,
       }}
       className={styles.buttonAddMovie}
       onClick={onClick}
