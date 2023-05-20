@@ -8,7 +8,6 @@ import TheaterManagementPage from "./pages/TheaterManagementPage";
 import LoginPage from "./pages/LoginPage";
 import CreateUserManagement from "./pages/UserManagementPage/CreateUserManagement";
 import CreateMovieManagement from "./pages/MovieManagementPage/CreateMovieManagement";
-import CreateBookingManagement from "./pages/BookingManagementPage/CreateBookingManagement";
 import EditMovieManagement from "./pages/MovieManagementPage/EditMovieManagement";
 import EditUserManagement from "./pages/UserManagementPage/EditUserManagement";
 import ListTheater from "./pages/TheaterManagementPage/ListTheater";
@@ -41,7 +40,6 @@ function App() {
             {/* Tạo Lịch Chiếu */}
             <Route path="booking-management">
               <Route index element={<BookingManagementPage />} />
-              <Route path="create" element={<CreateBookingManagement />} />
             </Route>
 
             {/* Danh Sách Rạp */}

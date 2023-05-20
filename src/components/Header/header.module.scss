@@ -1,0 +1,48 @@
+.header {
+    .form__buttonAll {
+        min-width: 100px;
+        flex: 1;
+        display: flex;
+
+        .logout__content {
+            display: flex;
+            justify-content: space-evenly;
+            margin-left: auto;
+            width: 100%;
+
+            .infoUser {
+                text-align: center;
+                padding-top: 12px;
+                min-width: 100px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .form__button {
+            justify-content: space-evenly;
+            width: 100%;
+            margin: auto;
+        }
+
+        .iconUser {
+            font-size: 24px;
+            color: gray;
+            margin-right: 5px;
+            transition: all 0.3s;
+        }
+
+        button {
+            color: #959595;
+            background-color: transparent;
+            border: none;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                color: #ec7532;
+            }
+        }
+    }
+}
