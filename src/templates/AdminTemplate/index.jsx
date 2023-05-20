@@ -68,8 +68,8 @@ function AdminTemplate() {
                   {
                     key: "3.1",
                     label: (
-                      <Link to="/booking-management">
-                        Lịch sử đặt vé
+                      <Link to="/booking-management/create">
+                        Tạo lịch chiếu
                       </Link>
                     ),
                   },

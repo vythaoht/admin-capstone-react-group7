@@ -27,8 +27,6 @@ export async function getInfoAccountAPI(accountName) {
     const response = await axiosClient.post(
       `/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${accountName}`
     );
-    console.log(response);
-
     return response.data.content;
   } catch (error) {
     throw error.response.data.content;
@@ -42,8 +40,6 @@ export const updateUserAPI = async (account) => {
     for (let key in account) {
       formData.append(key, account[key]);
     }
-
-    console.log(formData);
 
     await axiosClient.post(
       `/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
