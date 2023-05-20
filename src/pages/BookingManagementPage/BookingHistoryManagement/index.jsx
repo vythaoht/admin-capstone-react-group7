@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from "./bookingManagementPage.module.scss";
+import styles from "./bookingHistoryManagement.module.scss";
 import cls from "classnames";
 import {
   MDBTabs,
@@ -8,9 +8,8 @@ import {
   MDBTabsContent,
   MDBTabsPane
 } from 'mdb-react-ui-kit';
-import EditPersonalInfo from './EditPersonalInfo';
 
-function BookingManagementPage() {
+function BookingHistoryManagement() {
   const [basicActive, setBasicActive] = useState('editPersonelInfo');
 
   const handleBasicClick = (value) => {
@@ -39,7 +38,7 @@ function BookingManagementPage() {
         {
           <>
             <MDBTabsPane show={basicActive === 'editPersonelInfo'}>
-              <EditPersonalInfo />
+
             </MDBTabsPane>
 
             <MDBTabsPane show={basicActive === 'tab2'}>
@@ -52,4 +51,4 @@ function BookingManagementPage() {
   );
 }
 
-export default BookingManagementPage;
+export default BookingHistoryManagement;

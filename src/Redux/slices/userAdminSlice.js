@@ -42,7 +42,11 @@ const initialState = {
 const userReducer = createSlice({
   name: "userAdminSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state, action) => {
+      state.user = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(loginRequestAction.pending, (state) => {
       state.isLoading = true;
@@ -60,3 +64,4 @@ const userReducer = createSlice({
 });
 
 export default userReducer.reducer;
+export const { logout } = userReducer.actions;
