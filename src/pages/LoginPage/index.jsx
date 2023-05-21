@@ -44,7 +44,7 @@ function LoginPage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.cover}>
           <div className={styles.icon}>
-            <i class="fa fa-user-lock"></i>
+            <i className="fa fa-user-lock"></i>
           </div>
           <h4 className={styles.text}>Đăng Nhập User Admin</h4>
 

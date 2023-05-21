@@ -274,7 +274,7 @@ function CreateUserManagement() {
           </label>
         </div>
         <div className={styles.formGroup}>
-          <ButtonUI title='Thêm Tài Khoản' disabled={isLoading} />
+          <ButtonUI type="submit" title='Thêm Tài Khoản' disabled={isLoading} />
         </div>
       </form>
     </div>

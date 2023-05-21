@@ -8,7 +8,6 @@ import {
   MDBTabsContent,
   MDBTabsPane
 } from 'mdb-react-ui-kit';
-import EditPersonalInfo from './EditPersonalInfo';
 
 function BookingManagementPage() {
   const [basicActive, setBasicActive] = useState('editPersonelInfo');
@@ -39,11 +38,10 @@ function BookingManagementPage() {
         {
           <>
             <MDBTabsPane show={basicActive === 'editPersonelInfo'}>
-              <EditPersonalInfo />
             </MDBTabsPane>
 
             <MDBTabsPane show={basicActive === 'tab2'}>
-
+              
             </MDBTabsPane>
           </>
         }

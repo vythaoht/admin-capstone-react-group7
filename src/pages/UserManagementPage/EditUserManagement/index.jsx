@@ -29,7 +29,6 @@ function EditUserManagement() {
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
-      xacThucMatKhau: "",
       email: "",
       soDT: "",
       maNhom: "GP07",
@@ -40,9 +39,9 @@ function EditUserManagement() {
   });
 
   // Xử lý hiển thị dữ liệu lên Input
-  const onEditAccount = async (accountName) => {
+  const onEditAccount = async (account) => {
     try {
-      const data = await getInfoAccountAPI(accountName);
+      const data = await getInfoAccountAPI(account);
       // update dữ  liệu vào ô Input
       setValue("taiKhoan", data.taiKhoan);
       setValue("matKhau", data.matKhau);
@@ -50,13 +49,7 @@ function EditUserManagement() {
       setValue("soDT", data.soDT);
       setValue("maNhom", "GP07");
       setValue("hoTen", data.hoTen);
-      setTypeSelect([
-        ...typeSelect,
-        {
-          maLoaiNguoiDung: data.loaiNguoiDung.maLoaiNguoiDung,
-          tenLoai: data.loaiNguoiDung.tenLoai,
-        },
-      ]);
+      setValue("maLoaiNguoiDung", data.maLoaiNguoiDung);
     } catch (error) {
       toast.error(error);
     }
@@ -69,9 +62,20 @@ function EditUserManagement() {
   // Xử lý cập nhật dữ liệu
   const onSubmit = async (values) => {
     try {
-      const data = await updateUserAPI({ ...values });
+      console.log({ ...values });
+      
+      const data = await updateUserAPI({
+        taiKhoan: data.taiKhoan,
+        matKhau: data.matKhau,
+        email: data.email,
+        soDT: data.soDT,
+        maNhom: "GP07",
+        hoTen: data.hoTen,
+        maLoaiNguoiDung: data.loaiNguoiDung.maLoaiNguoiDung
+      });
 
       console.log(data);
+
 
       if (data) {
         toast.success("Cập Nhật thông tin Thành Công");
@@ -304,7 +308,7 @@ function EditUserManagement() {
           </label>
         </div>
         <div className={styles.formGroup}>
-          <ButtonUI title="Cập Nhật" disabled={isLoading} />
+          <ButtonUI type="submit" title="Cập Nhật" disabled={isLoading} />
         </div>
       </form>
     </div>

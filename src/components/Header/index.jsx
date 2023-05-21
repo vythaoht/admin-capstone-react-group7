@@ -1,8 +1,8 @@
-import { MDBBtnGroup } from "mdb-react-ui-kit";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./header.module.scss";
 import { logout } from "../../Redux/slices/userAdminSlice";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
   const { user } = useSelector((state) => state.userReducer);
@@ -15,33 +15,25 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <MDBBtnGroup
-        tag="form"
-        className={`d-flex ${styles.form__buttonAll}`}
-      >
+      <Dropdown className={styles.form__buttonAll}>
         {user && (
-          <div className={styles.logout__content}>
-            <p className={styles.infoUser}>
-              <span className={styles.iconUser}>
-                <i className="fa fa-user-circle"></i>
-              </span>
-              {user.hoTen}
-            </p>
-            <button
-              type="button"
-              outline
-              size="sm"
-              onClick={handleLogOut}
-            >
-              <span className={styles.iconUser}>
-                <i className="fa fa-sign-out-alt"></i>
-              </span>
-              Đăng Xuất
-            </button>
-          </div>
+          <>
+            <Dropdown.Toggle>
+              <p className={styles.infoUser}>
+                <span className={styles.iconUser}>
+                  <i className="fa fa-user-circle"></i>
+                </span>
+                {user.hoTen}
+              </p>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleLogOut}>Đăng Xuất</Dropdown.Item>
+            </Dropdown.Menu>
+          </>
         )}
-      </MDBBtnGroup>
-    </header>
+      </Dropdown>
+    </header >
   )
 }
 

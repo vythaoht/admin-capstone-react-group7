@@ -27,8 +27,6 @@ export async function getInfoAccountAPI(accountName) {
     const response = await axiosClient.post(
       `/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${accountName}`
     );
-    console.log(response);
-
     return response.data.content;
   } catch (error) {
     throw error.response.data.content;
@@ -38,18 +36,10 @@ export async function getInfoAccountAPI(accountName) {
 // Call API cập nhật thông tin
 export const updateUserAPI = async (account) => {
   try {
-    const formData = new FormData();
-    for (let key in account) {
-      formData.append(key, account[key]);
-    }
+    const payload = { ...account };
 
-    console.log(formData);
-
-    await axiosClient.post(
-      `/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
-      formData
-    );
-    return true;
+    const { data } = await axiosClient.post("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", payload);
+    return data;
   } catch (error) {
     throw error.response.data.content;
   }

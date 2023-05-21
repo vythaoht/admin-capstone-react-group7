@@ -1,32 +1,23 @@
 .header {
+    z-index: 999;
+
     .form__buttonAll {
         min-width: 100px;
         flex: 1;
         display: flex;
+        margin: 0;
+        padding: 0;
 
-        .logout__content {
+        .infoUser {
+            text-align: center;
+            padding-top: 12px;
+            min-width: 100px;
             display: flex;
-            justify-content: space-evenly;
-            margin-left: auto;
-            width: 100%;
-
-            .infoUser {
-                text-align: center;
-                padding-top: 12px;
-                min-width: 100px;
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        .form__button {
-            justify-content: space-evenly;
-            width: 100%;
-            margin: auto;
+            align-items: center;
         }
 
         .iconUser {
-            font-size: 24px;
+            font-size: 23px;
             color: gray;
             margin-right: 5px;
             transition: all 0.3s;
@@ -36,13 +27,28 @@
             color: #959595;
             background-color: transparent;
             border: none;
-            min-width: 100px;
             display: flex;
             align-items: center;
 
             &:hover {
                 color: #ec7532;
             }
+
+            &:first-child:active{
+                background-color: transparent;
+                border-color: none;
+            }
+        }
+
+        ul {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: inline;
+            cursor: pointer;
         }
     }
 }
