@@ -3,13 +3,11 @@ import axiosClient from "../../config/axiosClient";
 // Call API tạo lịch chiếu
 export const getCreateShowTimeAPI = async (values) => {
   try {
-    const formData = new FormData();
-    for (let key in values) {
-      formData.append(key, values[key]);
-    }
+    const payload = { ...values };
 
-    await axiosClient.post(`/QuanLyDatVe/TaoLichChieu`, formData);
-    // return true;
+    const { data } = await axiosClient.post("/QuanLyDatVe/TaoLichChieu", payload);
+    return data;
+
   } catch (error) {
     throw error.response.data.content;
   }
