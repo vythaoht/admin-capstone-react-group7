@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import styles from "./createBookingManagement.module.scss";
-import { useSearchParams } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
-import { DatePicker, Input, Space, Form, InputNumber } from 'antd';
-import ButtonUI from '../../../components/Button';
-import { getCreateShowTimeAPI } from '../../../Redux/services/createShowtimeAPI';
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
+import { useSearchParams } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { DatePicker, Input, Space, Form, InputNumber } from "antd";
+import ButtonUI from "../../../components/Button";
+import { getCreateShowTimeAPI } from "../../../Redux/services/createShowtimeAPI";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 function CreateBookingManagement() {
   const [searchParams, setSearchParams] = useSearchParams([]);
@@ -15,12 +15,14 @@ function CreateBookingManagement() {
     defaultValues: {
       maPhim: 0,
       maRap: "",
-      ngayChieuGioChieu: "01/01/1998 00:00:00",
+      ngayChieuGioChieu: Date.now(),
       giaVe: 0,
-    }
-  })
+    },
+  });
 
-  const maPhimParam = searchParams ? parseInt(searchParams.get("maPhim")) : parseInt(0);
+  const maPhimParam = searchParams
+    ? parseInt(searchParams.get("maPhim"))
+    : parseInt(0);
   const maCumRapParam = searchParams ? searchParams.get("maCumRap") : null;
 
   console.log(maPhimParam);
@@ -33,27 +35,27 @@ function CreateBookingManagement() {
     }
   }, [searchParams]);
 
-
   const onSubmit = async (values) => {
     try {
-      console.log({ ...values });
       await getCreateShowTimeAPI({
         maPhim: values.maPhim,
         maRap: values.maRap,
-        ngayChieuGioChieu: values.ngayChieuGioChieu,
+        ngayChieuGioChieu: dayjs(values.ngayChieuGioChieu).format(
+          "DD/MM/YYYY HH:mm:ss"
+        ),
         giaVe: values.giaVe,
       });
       toast.success("Tạo lịch chiếu thành công");
       reset({
         maPhim: parseInt(0),
         maRap: "",
-        ngayChieuGioChieu: "01/01/1998 00:00:00",
+        ngayChieuGioChieu: Date.now(),
         giaVe: 0,
       });
     } catch (error) {
       toast.setError("Tạo lịch chiếu không thành công");
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -98,15 +100,17 @@ function CreateBookingManagement() {
         <Controller
           name="ngayChieuGioChieu"
           control={control}
-          render={({ onChange, field }) => {
+          render={({ field }) => {
             return (
               <Space direction="vertical" size={12}>
                 <DatePicker
-                  onChange={onChange}
+                  onChange={field.onChange}
+                  value={dayjs(field.value)}
                   style={{ width: "50rem" }}
-                  value={dayjs(field.ngayChieuGioChieu)}
-                  showTime
-                  format="DD/MM/YYYY hh:mm:ss"
+                  showTime={{
+                    format: "HH:mm:ss",
+                  }}
+                  format="DD/MM/YYYY HH:mm:ss"
                 />
               </Space>
             );
@@ -133,7 +137,7 @@ function CreateBookingManagement() {
       </div>
 
       <div className={styles.formGroup}>
-        <ButtonUI type="submit" title='Tạo Lịch Chiếu' />
+        <ButtonUI type="submit" title="Tạo Lịch Chiếu" />
       </div>
     </form>
   );
