@@ -1,8 +1,9 @@
-import { MDBBtnGroup } from "mdb-react-ui-kit";
+import { MDBBtnGroup, MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem } from "mdb-react-ui-kit";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./header.module.scss";
 import { logout } from "../../Redux/slices/userAdminSlice";
+import cls from 'classnames'
 
 function Header() {
   const { user } = useSelector((state) => state.userReducer);
@@ -15,7 +16,33 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <MDBBtnGroup
+      <MDBDropdown group className={cls('shadow-0', styles.form__buttonAll)}>
+        {user && (
+          <>
+            <MDBDropdownToggle >
+              <p className={styles.infoUser}>
+                <span className={styles.iconUser}>
+                  <i className="fa fa-user-circle"></i>
+                </span>
+                {user.hoTen}
+              </p>
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem
+                onClick={handleLogOut}
+              >
+                Đăng Xuất
+              </MDBDropdownItem>
+            </MDBDropdownMenu>
+          </>
+        )}
+      </MDBDropdown>
+
+
+
+
+
+      {/* <MDBBtnGroup
         tag="form"
         className={`d-flex ${styles.form__buttonAll}`}
       >
@@ -40,8 +67,8 @@ function Header() {
             </button>
           </div>
         )}
-      </MDBBtnGroup>
-    </header>
+      </MDBBtnGroup> */}
+    </header >
   )
 }
 
