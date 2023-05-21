@@ -1,9 +1,7 @@
-import { MDBBtnGroup, MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem } from "mdb-react-ui-kit";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./header.module.scss";
 import { logout } from "../../Redux/slices/userAdminSlice";
-import cls from 'classnames'
 import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
@@ -21,7 +19,7 @@ function Header() {
         {user && (
           <>
             <Dropdown.Toggle>
-            <p className={styles.infoUser}>
+              <p className={styles.infoUser}>
                 <span className={styles.iconUser}>
                   <i className="fa fa-user-circle"></i>
                 </span>

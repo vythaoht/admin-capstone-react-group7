@@ -37,7 +37,8 @@ function CreateBookingManagement() {
       await getCreateShowTimeAPI({
         maPhim: values.maPhim,
         maRap: values.maRap,
-        ngayChieuGioChieu: values.ngayChieuGioChieu,
+        ngayChieuGioChieu: dayjs(values.ngayChieuGioChieu).format(
+          "DD/MM/YYYY HH:mm:ss"),
         giaVe: values.giaVe,
       });
       toast.success("Tạo lịch chiếu thành công");
