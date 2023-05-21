@@ -13,6 +13,7 @@ import EditMovieManagement from "./pages/MovieManagementPage/EditMovieManagement
 import EditUserManagement from "./pages/UserManagementPage/EditUserManagement";
 import ListTheater from "./pages/TheaterManagementPage/ListTheater";
 import ListMovieOfTheater from "./pages/TheaterManagementPage/ListTheater/ListMovieOfTheater";
+import CinemaDetails from "./pages/TheaterManagementPage/CinemaDetails";
 
 function App() {
   return (
@@ -45,10 +46,6 @@ function App() {
             </Route>
 
             {/* Danh Sách Rạp */}
-            {/* <Route
-              path="theater-management"
-              element={<TheaterManagementPage />}
-            /> */}
             <Route path="theater-management">
               <Route index element={<TheaterManagementPage />} />
               <Route path="listTheater/:theaterId" element={<ListTheater />} />
@@ -57,6 +54,7 @@ function App() {
                 element={<ListMovieOfTheater />}
               />
             </Route>
+            <Route path="cinema/:showTimeId" element={<CinemaDetails />} />
           </Route>
 
           <Route path="login" element={<LoginPage />} />

@@ -159,6 +159,7 @@ function ListMovieOfTheater() {
                 <th>Tên Rạp</th>
                 <th>Ngày Giờ Chiếu</th>
                 <th>Giá Vé</th>
+                <th>Hành Động</th>
               </tr>
             </thead>
             <tbody>
@@ -174,6 +175,14 @@ function ListMovieOfTheater() {
                       )}
                     </td>
                     <td>{item.giaVe.toLocaleString()}</td>
+                    <td>
+                      <ButtonUI
+                        title="Xem Chi Tiết"
+                        onClick={() => {
+                          navigate(`/cinema/${item.maLichChieu}`);
+                        }}
+                      />
+                    </td>
                   </tr>
                 );
               })}

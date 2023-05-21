@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  gap: 10px;
+  .seatRow {
+    row-gap: 15px;
+    column-gap: 15px;
+    width: 80%;
+  }
+
+  .seatItem {
+    text-align: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .spacing {
+    margin-left: 124px;
+  }
+
+  .stickDefault {
+    background-color: rgb(238, 234, 234);
+    width: 25px;
+    height: 25px;
+    margin-right: 25px;
+  }
+
+  .stickVip {
+    background-color: orange;
+    width: 25px;
+    height: 25px;
+    margin-right: 25px;
+  }
+
+  .stickSoldOut {
+    background-color: rgb(80, 78, 78);
+    width: 25px;
+    height: 25px;
+    margin-right: 25px;
+  }
+
+  .flex {
+    display: flex;
+  }
+}

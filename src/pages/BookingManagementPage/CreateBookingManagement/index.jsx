@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import styles from "./createBookingManagement.module.scss";
-import { useSearchParams } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
-import { DatePicker, Input, Space, Form, InputNumber } from 'antd';
-import ButtonUI from '../../../components/Button';
-import { getCreateShowTimeAPI } from '../../../Redux/services/createShowtimeAPI';
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
+import { useSearchParams } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { DatePicker, Input, Space, Form, InputNumber } from "antd";
+import ButtonUI from "../../../components/Button";
+import { getCreateShowTimeAPI } from "../../../Redux/services/createShowtimeAPI";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 function CreateBookingManagement() {
   const [searchParams, setSearchParams] = useSearchParams([]);
@@ -17,10 +17,12 @@ function CreateBookingManagement() {
       maRap: "",
       ngayChieuGioChieu: Date.now(),
       giaVe: 0,
-    }
-  })
+    },
+  });
 
-  const maPhimParam = searchParams ? parseInt(searchParams.get("maPhim")) : parseInt(0);
+  const maPhimParam = searchParams
+    ? parseInt(searchParams.get("maPhim"))
+    : parseInt(0);
   const maCumRapParam = searchParams ? searchParams.get("maCumRap") : null;
 
   useEffect(() => {
@@ -30,14 +32,12 @@ function CreateBookingManagement() {
     }
   }, [searchParams]);
 
-
   const onSubmit = async (values) => {
     try {
       await getCreateShowTimeAPI({
         maPhim: values.maPhim,
         maRap: values.maRap,
-        ngayChieuGioChieu: dayjs(values.ngayChieuGioChieu).format(
-          "DD/MM/YYYY HH:mm:ss"),
+        ngayChieuGioChieu: values.ngayChieuGioChieu,
         giaVe: values.giaVe,
       });
       toast.success("Tạo lịch chiếu thành công");
@@ -50,7 +50,7 @@ function CreateBookingManagement() {
     } catch (error) {
       toast.setError("Tạo lịch chiếu không thành công");
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -132,7 +132,7 @@ function CreateBookingManagement() {
       </div>
 
       <div className={styles.formGroup}>
-        <ButtonUI type="submit" title='Tạo Lịch Chiếu' />
+        <ButtonUI type="submit" title="Tạo Lịch Chiếu" />
       </div>
     </form>
   );
