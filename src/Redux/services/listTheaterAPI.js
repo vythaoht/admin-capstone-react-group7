@@ -36,3 +36,16 @@ export const listMovieOfTheaterRequest = async (theaterId, id) => {
     throw error.response.data.content;
   }
 };
+
+//api lấy danh sách phòng vé để duyệt mảng lấy được danh sách ghế show ra
+export const cinemaDetailsRequest = async (showTimeId) => {
+  try {
+    const response = await axiosClient.get(
+      `/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${showTimeId}`
+    );
+    console.log(response);
+    return response.data.content.danhSachGhe;
+  } catch (error) {
+    throw error.response.data.content;
+  }
+};
