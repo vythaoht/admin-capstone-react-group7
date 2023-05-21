@@ -36,16 +36,10 @@ export async function getInfoAccountAPI(accountName) {
 // Call API cập nhật thông tin
 export const updateUserAPI = async (account) => {
   try {
-    const formData = new FormData();
-    for (let key in account) {
-      formData.append(key, account[key]);
-    }
+    const payload = { ...account };
 
-    await axiosClient.post(
-      `/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
-      formData
-    );
-    return true;
+    const { data } = await axiosClient.post("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", payload);
+    return data;
   } catch (error) {
     throw error.response.data.content;
   }

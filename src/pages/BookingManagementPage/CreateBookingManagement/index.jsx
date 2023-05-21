@@ -15,16 +15,13 @@ function CreateBookingManagement() {
     defaultValues: {
       maPhim: 0,
       maRap: "",
-      ngayChieuGioChieu: "01/01/1998 00:00:00",
+      ngayChieuGioChieu: Date.now(),
       giaVe: 0,
     }
   })
 
   const maPhimParam = searchParams ? parseInt(searchParams.get("maPhim")) : parseInt(0);
   const maCumRapParam = searchParams ? searchParams.get("maCumRap") : null;
-
-  console.log(maPhimParam);
-  console.log(maCumRapParam);
 
   useEffect(() => {
     if (maPhimParam && maCumRapParam) {
@@ -36,18 +33,18 @@ function CreateBookingManagement() {
 
   const onSubmit = async (values) => {
     try {
-      console.log({ ...values });
       await getCreateShowTimeAPI({
         maPhim: values.maPhim,
         maRap: values.maRap,
-        ngayChieuGioChieu: values.ngayChieuGioChieu,
+        ngayChieuGioChieu: dayjs(values.ngayChieuGioChieu).format(
+          "DD/MM/YYYY HH:mm:ss"),
         giaVe: values.giaVe,
       });
       toast.success("Tạo lịch chiếu thành công");
       reset({
         maPhim: parseInt(0),
         maRap: "",
-        ngayChieuGioChieu: "01/01/1998 00:00:00",
+        ngayChieuGioChieu: Date.now(),
         giaVe: 0,
       });
     } catch (error) {
@@ -98,15 +95,17 @@ function CreateBookingManagement() {
         <Controller
           name="ngayChieuGioChieu"
           control={control}
-          render={({ onChange, field }) => {
+          render={({ field }) => {
             return (
               <Space direction="vertical" size={12}>
                 <DatePicker
-                  onChange={onChange}
+                  onChange={field.onChange}
+                  value={dayjs(field.value)}
                   style={{ width: "50rem" }}
-                  value={dayjs(field.ngayChieuGioChieu)}
-                  showTime
-                  format="DD/MM/YYYY hh:mm:ss"
+                  showTime={{
+                    format: "HH:mm:ss",
+                  }}
+                  format="DD/MM/YYYY HH:mm:ss"
                 />
               </Space>
             );

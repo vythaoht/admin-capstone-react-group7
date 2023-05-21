@@ -5,6 +5,8 @@
         min-width: 100px;
         flex: 1;
         display: flex;
+        margin: 0;
+        padding: 0;
 
         .infoUser {
             text-align: center;
@@ -13,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        
+
         .iconUser {
             font-size: 23px;
             color: gray;
@@ -25,7 +27,6 @@
             color: #959595;
             background-color: transparent;
             border: none;
-            min-width: 100px;
             display: flex;
             align-items: center;
 
@@ -33,9 +34,9 @@
                 color: #ec7532;
             }
 
-            &.active {
-                margin: 0;
-                padding: 0;
+            &:first-child:active{
+                background-color: transparent;
+                border-color: none;
             }
         }
 
