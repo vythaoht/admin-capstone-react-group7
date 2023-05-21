@@ -14,7 +14,7 @@ function LoginPage() {
     return state.userReducer;
   });
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const {
     register,

@@ -54,7 +54,7 @@ function CreateMovieManagement() {
       toast.success("Thêm phim thành công");
       reset();
     } catch (error) {
-      toast.error(error);
+      toast.error("Thêm phim không thành công");
     }
   };
 

@@ -49,7 +49,7 @@ function CreateBookingManagement() {
         giaVe: 0,
       });
     } catch (error) {
-      toast.setError("Tạo lịch chiếu không thành công");
+      toast.error("Tạo lịch chiếu không thành công");
     }
   };
 

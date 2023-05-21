@@ -23,7 +23,6 @@ function EditUserManagement() {
     handleSubmit,
     control,
     setValue,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -51,7 +50,7 @@ function EditUserManagement() {
       setValue("hoTen", data.hoTen);
       setValue("maLoaiNguoiDung", data.maLoaiNguoiDung);
     } catch (error) {
-      toast.error(error);
+      toast.error("Thông tin không thể truy cập");
     }
   };
 
@@ -62,27 +61,23 @@ function EditUserManagement() {
   // Xử lý cập nhật dữ liệu
   const onSubmit = async (values) => {
     try {
-      console.log({ ...values });
-      
-      const data = await updateUserAPI({
-        taiKhoan: data.taiKhoan,
-        matKhau: data.matKhau,
-        email: data.email,
-        soDT: data.soDT,
+      await updateUserAPI({
+        taiKhoan: values.taiKhoan,
+        matKhau: values.matKhau,
+        email: values.email,
+        soDT: values.soDT,
         maNhom: "GP07",
-        hoTen: data.hoTen,
-        maLoaiNguoiDung: data.loaiNguoiDung.maLoaiNguoiDung
+        hoTen: values.hoTen,
+        maLoaiNguoiDung: values.maLoaiNguoiDung
       });
 
-      console.log(data);
 
-
-      if (data) {
-        toast.success("Cập Nhật thông tin Thành Công");
-        navigate("/user-management");
-      }
+      // if (data) {
+      toast.success("Cập nhật thông tin thành công");
+      navigate("/user-management");
+      // }
     } catch (error) {
-      toast.error(error);
+      toast.error("Cập nhật thông tin không thành công");
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +89,7 @@ function EditUserManagement() {
       const data = await getTypeAPI();
       setTypeSelect(data.content);
     } catch (error) {
-      toast.setError("Không lấy được loại người dùng");
+      toast.error("Không lấy được loại người dùng");
     }
   };
 
@@ -261,7 +256,7 @@ function EditUserManagement() {
                 <Select
                   onChange={onChange}
                   {...field}
-                  value={field.value.key}
+                  value={field.value}
                   style={{ width: "50rem", textAlign: "left" }}
                   placeholder="--Chọn loại người dùng--"
                 >

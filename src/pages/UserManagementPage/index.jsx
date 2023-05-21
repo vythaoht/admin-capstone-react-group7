@@ -21,7 +21,7 @@ function UserManagementPage() {
       const data = await getListAccountAPI();
       setAccounts(data.content);
     } catch (error) {
-      toast.setError("Không lấy được danh sách tài khoản");
+      toast.error("Không lấy được danh sách tài khoản");
     }
   }
 

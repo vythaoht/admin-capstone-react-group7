@@ -14,7 +14,7 @@ function TheaterManagementPage() {
       const data = await listTheaterRequest();
       setListTheater(data);
     } catch (error) {
-      toast.error(error);
+      toast.error("Thông tin không thể truy cập");
     }
   };
   useEffect(() => {

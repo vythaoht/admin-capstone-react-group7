@@ -80,7 +80,7 @@ function EditMovieManagement() {
       setValue("sapChieu", data.sapChieu);
       setValue("dangChieu", data.dangChieu);
     } catch (error) {
-      toast.error(error);
+      toast.error("Thông tin phim không thể truy cập");
     }
   };
   useEffect(() => {
@@ -90,7 +90,7 @@ function EditMovieManagement() {
   //Cập nhật lại - đẩy thông tin mới lên server (giống create)
   const onSubmit = async (values) => {
     if (!fileList.length) {
-      toast.warning("Vui long chon hinh anh");
+      toast.warning("Vui lòng chọn hình ảnh");
       return;
     }
     const payload = {
@@ -103,13 +103,13 @@ function EditMovieManagement() {
     try {
       const data = await updateInfoMovieRequest(payload);
       if (data) {
-        toast.success("Cập Nhật Phim Thành Công");
+        toast.success("Cập nhật phim thành công");
         //sau khi cập nhật, chuyển về trang Thông tin phim
 
         navigate("/movie-management");
       }
     } catch (error) {
-      toast.error(error);
+      toast.error("Cập nhật phim không thành công");
     }
   };
 
