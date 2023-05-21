@@ -43,7 +43,6 @@ export const cinemaDetailsRequest = async (showTimeId) => {
     const response = await axiosClient.get(
       `/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${showTimeId}`
     );
-    console.log(response);
     return response.data.content.danhSachGhe;
   } catch (error) {
     throw error.response.data.content;

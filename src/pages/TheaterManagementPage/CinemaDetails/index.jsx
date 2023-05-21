@@ -18,7 +18,7 @@ function CinemaDetails() {
       const data = await cinemaDetailsRequest(showTimeId);
       setCinema(data);
     } catch (error) {
-      toast.error(error);
+      toast.error("Thông tin không thể truy cập");
     }
   };
   useEffect(() => {

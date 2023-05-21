@@ -49,7 +49,7 @@ function CreateUserManagement() {
       toast.success("Đăng ký thành công");
       navigate("/user-management");
     } catch (error) {
-      toast.error(error);
+      toast.error("Đăng ký không thành công");
     } finally {
       setIsLoading(false);
     }
@@ -62,7 +62,7 @@ function CreateUserManagement() {
       const data = await getTypeAPI();
       setTypeSelect(data.content);
     } catch (error) {
-      toast.setError("Không lấy được loại người dùng");
+      toast.error("Không lấy được loại người dùng");
     }
   }
 

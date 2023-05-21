@@ -111,7 +111,7 @@ function ListMovieOfTheater() {
       const data = await listMovieOfTheaterRequest(theaterId, id);
       setListMovie(data[0].danhSachPhim);
     } catch (error) {
-      toast.error(error);
+      toast.error("Thông tin không thể truy cập");
     }
   };
   useEffect(() => {

@@ -134,7 +134,7 @@ function MovieManagementPage() {
       toast.success("Xoá phim thành công!");
       fetchListMovie();
     } catch (error) {
-      toast.error(error);
+      toast.error("Xóa phim không thành công");
     }
   };
 
