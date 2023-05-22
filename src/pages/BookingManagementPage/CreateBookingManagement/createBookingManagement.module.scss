@@ -1,18 +1,23 @@
+.notice {
+  text-align: center;
+  font-style: italic;
+  color: red;
+}
 .formGroup {
-    margin-bottom: 10px;
-    text-align: center;
+  margin-bottom: 10px;
+  text-align: center;
 
-    input {
-        width: 50rem;
-        padding: 10px;
-    }
+  input {
+    width: 50rem;
+    padding: 10px;
+  }
 
-    p {
-        color: orangered;
-    }
+  p {
+    color: orangered;
+  }
 
-    button {
-        width: 50rem;
-        padding: 15px;
-    }
+  button {
+    width: 50rem;
+    padding: 15px;
+  }
 }
