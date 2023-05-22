@@ -1,7 +1,8 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 function HomePage() {
-  return <div>HomePage</div>;
+  return <Navigate to="/user-management" />;
 }
 
 export default HomePage;
