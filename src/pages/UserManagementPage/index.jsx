@@ -101,6 +101,7 @@ function UserManagementPage() {
     try {
       const data = await deleteUserAPI(accountName);
       toast.success("Xoá tài khoản thành công!");
+      getAccounts();
     } catch (error) {
       toast.setError("Xóa tài khoản không thành công");
     }
