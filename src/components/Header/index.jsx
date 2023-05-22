@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./header.module.scss";
 import { logout } from "../../Redux/slices/userAdminSlice";
-import Dropdown from 'react-bootstrap/Dropdown';
+import Dropdown from "react-bootstrap/Dropdown";
 
 function Header() {
   const { user } = useSelector((state) => state.userReducer);
@@ -33,8 +33,8 @@ function Header() {
           </>
         )}
       </Dropdown>
-    </header >
-  )
+    </header>
+  );
 }
 
 export default Header;

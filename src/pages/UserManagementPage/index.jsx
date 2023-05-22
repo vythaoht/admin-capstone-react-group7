@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ButtonUI from "../../components/Button";
 import SearchForm from "../../components/SearchForm";
-import styles from './userManagementPage.module.scss';
-import { getListAccountAPI, deleteUserAPI } from "../../Redux/services/listAccountAPI";
+import styles from "./userManagementPage.module.scss";
+import {
+  getListAccountAPI,
+  deleteUserAPI,
+} from "../../Redux/services/listAccountAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
-
 
 function UserManagementPage() {
   const [accounts, setAccounts] = useState([]);
@@ -23,7 +25,7 @@ function UserManagementPage() {
     } catch (error) {
       toast.error("Không lấy được danh sách tài khoản");
     }
-  }
+  };
 
   useEffect(() => {
     getAccounts();
@@ -44,7 +46,6 @@ function UserManagementPage() {
       });
     });
   }
-
 
   // xử lý phân trang
   const lastPostIndex = currentPage * postsPerPage;
@@ -82,9 +83,9 @@ function UserManagementPage() {
             </div>
           </td>
         </tr>
-      )
-    })
-  }
+      );
+    });
+  };
 
   // xử lý chuyển sang trang thêm người dùng
   const onNavigateToAddUser = () => {
@@ -105,8 +106,7 @@ function UserManagementPage() {
     } catch (error) {
       toast.setError("Xóa tài khoản không thành công");
     }
-  }
-
+  };
 
   return (
     <Fragment>
@@ -114,7 +114,7 @@ function UserManagementPage() {
         <h2>Danh Sách Người Dùng</h2>
         <ButtonUI title="Thêm Tài Khoản" onClick={onNavigateToAddUser} />
         <SearchForm
-          placeholder="Search Tên Phim"
+          placeholder="Search Tên Tài Khoản"
           onChange={handleChange}
           value={search}
         />
@@ -143,7 +143,7 @@ function UserManagementPage() {
         />
       </div>
     </Fragment>
-  )
+  );
 }
 
 export default UserManagementPage;
