@@ -4,7 +4,7 @@ import styles from './pagination.module.scss'
 function Pagination({ totalPosts, postsPerPage, setCurrentPage, currentPage }) {
     const pages = [];
 
-    for (let index = 1; index < Math.ceil(totalPosts / postsPerPage); index++) {
+    for (let index = 1; index <= Math.ceil(totalPosts / postsPerPage); index++) {
         pages.push(index);
     }
     return (
